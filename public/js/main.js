@@ -15,6 +15,23 @@ function createSpriteLayer(sprite, pos){
   }
 }
 
+class Vec2 {
+  constructor(x, y){
+    this.set(x,y);
+  }
+  set(x,y){
+    this.x = x; 
+    this.y = y;
+  }
+}
+
+class Entity{
+  constructor(){
+    this.pos = new Vec2(0,0);
+    this.vel = new Vec2(0,0);
+  }
+}
+
 Promise.all([
   loadMarioSprite(),
   loadBackgroundSprites(),
@@ -26,17 +43,26 @@ Promise.all([
   const backgroundLayer = createBackgroundLayer(level.backgrounds, backgroundSprites);
   comp.layers.push(backgroundLayer);
 
-  const pos = {
-      x: 64,
-      y: 64
-  };
-  const spriteLayer = createSpriteLayer(marioSprite, pos);
+  const gravity = 0.5;
+
+  const mario = new Entity();
+  mario.pos.set(64, 180);
+  mario.vel.set(2, -10);
+
+  mario.draw = 
+
+  mario.update = function updateMario(){
+    this.pos.x += this.vel.x;
+    this.pos.y += this.vel.y;
+  }
+
+  const spriteLayer = createSpriteLayer(marioSprite, mario.pos);
   comp.layers.push(spriteLayer);
 
 function update(){
   comp.draw(context);
-  pos.x += 2;
-  pos.y += 2;
+  mario.update();
+  mario.vel.y += gravity;
   requestAnimationFrame(update);
   }
   update();
