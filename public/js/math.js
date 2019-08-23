@@ -3,11 +3,19 @@ export class Matrix {
     // constructor just creates the grid, which is an array.
     this.grid = [];
   }
+forEach(callback){
+  this.grid.forEach((column, x) => {
+    column.forEach((value, y) => {
+      callback(tile, x, y);
+    });
+  });
+}
+
   get(x, y) {
     // works similarly to the set method. 
     const col = this.grid[x];
     if (col){
-      return. col[y];
+      return col[y];
     } 
     return undefined;
   }

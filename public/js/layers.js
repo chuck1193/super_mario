@@ -5,10 +5,8 @@ export function createBackgroundLayer(level, sprites){
 
   const context = buffer.getContext('2d');
 // looping over the grid variable in the matrix. Go into the level, into the tiles, and to the grid array
-  level.tiles.grid.forEach((column, x) => {
-    column.forEach((tile, y) => {
-      sprites.drawTile(tile.name, context, x, y);
-    });
+  level.tiles.forEach((tile, x, y) => {
+    sprites.drawTile(tile.name, context, x, y);    
   });
 
   return function drawBackgroundLayer(context){
