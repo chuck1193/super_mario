@@ -3,10 +3,11 @@ export class Matrix {
     // constructor just creates the grid, which is an array.
     this.grid = [];
   }
+
 forEach(callback){
   this.grid.forEach((column, x) => {
     column.forEach((value, y) => {
-      callback(tile, x, y);
+      callback(value, x, y);
     });
   });
 }
@@ -24,6 +25,7 @@ forEach(callback){
     if (!this.grid[x]){
       this.grid[x] = [];
     }
+    
     this.grid[x][y] = value;
   }
 }
