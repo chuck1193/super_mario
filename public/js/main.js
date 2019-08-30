@@ -32,6 +32,8 @@ Promise.all([
   });
   input.listenTo(window);
 
+  ['']
+
 
   const timer = new Timer(1/60);
   timer.update = function update(deltaTime){
