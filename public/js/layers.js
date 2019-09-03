@@ -21,3 +21,26 @@ export function createSpriteLayer(entities) {
     });
   };
 }
+
+export function createCollisionLayer(level){
+  const resolvedTiles = [];
+
+  const tileResolver = level.tileCollider.tiles;
+  const tileSize = tileResolver.tileSize;
+
+  const getByIndexOriginal = tileResolver.getByIndex;
+  tileResolver.getByIndex = function getByIndexFake(x, y){
+    resolvedTiles.push({x, y});
+    return getByIndexOriginal.call(tileResolver, x, y);
+  }
+  return function drawCollision(context) {
+    context.strokeStyle = 'blue';
+    resolvedTiles.forEach(({x, y}) => {
+      context.beginPath();
+      context.rext(x * tileSize, y * tileSize, tileSize, tileSize);
+      context.stroke();
+    });
+    resolvedTiles.length = 0;
+  };
+}
+// here we saved the get by index function inside the original so that we can use it later and then we override the original on the tile resolver object. so when that is called we can do whatever we want and then we return the rest of. the original call. the call method on a function binds the this keyword to a value.  
